@@ -1,0 +1,10 @@
+
+{
+  "name": "RoboAssist OS",
+  "description": "A comprehensive personal assistance desktop UI with voice-activated robot intelligence, security monitoring, and a full suite of productivity tools.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
