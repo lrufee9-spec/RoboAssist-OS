@@ -1,5 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
+// --- Firebase Neural Core Imports ---
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+// ------------------------------------
 import { ModuleType, User, SecurityAlert } from './types';
 import Login from './components/Login';
 import Desktop from './components/Desktop';
@@ -19,6 +23,22 @@ import StorageModule from './components/modules/StorageModule';
 import TerminalModule from './components/modules/TerminalModule';
 import ExtensionsModule from './components/modules/ExtensionsModule';
 import BatteryModule from './components/modules/BatteryModule';
+
+// --- Firebase Configuration & Initialization ---
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
+};
+
+// Start the Neural Brain
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+export const auth = getAuth(app);
+// ----------------------------------------------
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -123,7 +143,7 @@ const App: React.FC = () => {
         )}
       </div>
 
-      {/* Mobile Bottom Navigation (Visible only on Home or simple modules) */}
+      {/* Mobile Bottom Navigation */}
       {(activeModule === ModuleType.HOME || activeModule === ModuleType.PROFILE || activeModule === ModuleType.AI_CHAT || activeModule === ModuleType.INBOX) && (
         <div className="h-20 bg-slate-950 border-t border-white/5 flex items-center justify-around px-4 safe-bottom z-[90]">
           <button onClick={() => setActiveModule(ModuleType.HOME)} className={`flex flex-col items-center gap-1 ${activeModule === ModuleType.HOME ? 'text-blue-500' : 'text-slate-500'}`}>
