@@ -106,3 +106,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+// Deploying Neural Core v1.1
